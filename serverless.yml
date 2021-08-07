@@ -1,0 +1,27 @@
+service: gotest
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: go1.x
+  lambdaHashingVersion: 20201221
+  stage: dev
+  region: ap-southeast-2
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "sns:Publish"
+      Resource: "*"
+
+
+package:
+  patterns:
+    - '!./**'
+    - ./bin/**
+    - ./include/
+
+functions:
+  hello:
+    timeout: 30
+    memorySize: 256
+    handler: bin/helloShrek
